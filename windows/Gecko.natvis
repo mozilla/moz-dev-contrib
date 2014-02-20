@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+
+  <!-- Mozilla Gecko Visualizers -->
+
+  <!-- nsTArray -->
+  <Type Name="nsTArray&lt;*&gt;">
+    <DisplayString Condition="mHdr-&gt;mLength == 0 &amp;&amp; mHdr-&gt;mCapacity == 0">empty</DisplayString>
+    <DisplayString Condition="mHdr-&gt;mLength == mHdr-&gt;mCapacity">size = {mHdr-&gt;mLength}</DisplayString>
+    <DisplayString>size = {mHdr-&gt;mLength}, capacity = {mHdr-&gt;mCapacity}</DisplayString>
+    <Expand>
+      <ArrayItems Condition="mHdr->mLength &gt; 0">
+	<Size>mHdr-&gt;mLength</Size>
+	<ValuePointer>($T1*)(mHdr + 1)</ValuePointer>
+      </ArrayItems>
+    </Expand>
+  </Type>
+
+  <!-- refcounts -->
+  <Type Name="nsAutoRefCnt">
+    <DisplayString>{mValue}</DisplayString>
+  </Type>
+
+  <Type Name="nsCycleCollectingAutoRefCnt">
+    <!-- this value needs to be updated if NS_NUMBER_OF_FLAGS_IN_REFCNT in xpcom/glue/nsISupportsImpl.h changes -->
+    <DisplayString>{mValue >> 2}</DisplayString>
+    <Expand>
+      <Synthetic Name="In Purple Buffer"><DisplayString>{mValue &amp; 1 != 0}</DisplayString></Synthetic>
+      <Synthetic Name="Is Purple"><DisplayString>{mValue &amp; 2 != 0}</DisplayString></Synthetic>
+    </Expand>
+  </Type>
+
+  <Type Name="mozilla::ThreadSafeAutoRefCnt">
+    <DisplayString>{mValue.mValue._My_val}</DisplayString>
+  </Type>
+
+  <!-- smart pointer/refcount pointer things -->
+  <Type Name="nsRefPtr&lt;*&gt;">
+    <AlternativeType Name="nsCOMPtr&lt;*&gt;" />
+    <AlternativeType Name="nsAutoPtr&lt;*&gt;" />
+    <AlternativeType Name="mozilla::WebGLRefPtr&lt;*&gt;" />
+
+    <DisplayString Condition="mRawPtr == 0">NULL</DisplayString>
+    <DisplayString>{*($T1*)mRawPtr}</DisplayString>
+    <Expand>
+      <ExpandedItem>($T1*)mRawPtr</ExpandedItem>
+    </Expand>
+  </Type>
+
+  <!-- strings -->
+  <Type Name="nsACString">
+    <AlternativeType Name="nsACString_internal" />
+    <AlternativeType Name="nsCString" />
+    <AlternativeType Name="nsLiteralCString" />
+
+    <DisplayString>{mData,s}</DisplayString>
+    <StringView>mData,s</StringView>
+    <Expand>
+      <Item Name="Length">mLength</Item>
+      <Item Name="Flags">mFlags</Item>
+    </Expand>
+  </Type>
+
+  <Type Name="nsAString">
+    <AlternativeType Name="nsAString_internal" />
+    <AlternativeType Name="nsString" />
+    <AlternativeType Name="nsLiteralString" />
+
+    <DisplayString>{mData,su}</DisplayString>
+    <StringView>mData,su</StringView>
+    <Expand>
+      <Item Name="Length">mLength</Item>
+      <Item Name="Flags">mFlags</Item>
+    </Expand>
+  </Type>
+
+  <!-- rects, points, etc. -->
+  <Type Name="nsIntSize">
+    <DisplayString>width = {width}, height = {height}</DisplayString>
+  </Type>
+
+  <!-- JS types -->
+  <Type Name="JS::Handle&lt;*&gt;">
+    <DisplayString Condition="ptr == 0">NULL</DisplayString>
+    <DisplayString>{*($T1*)ptr}</DisplayString>
+    <Expand>
+      <ExpandedItem>($T1*)ptr</ExpandedItem>
+    </Expand>
+  </Type>
+
+
+</AutoVisualizer>
