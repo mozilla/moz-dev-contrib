@@ -1,0 +1,10 @@
+*~
+*.pyc
+*.pyo
+TAGS
+tags
+ID
+.DS_Store*
+.*.sw[a-z]
+\#*\#
+
