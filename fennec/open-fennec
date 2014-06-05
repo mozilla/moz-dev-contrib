@@ -1,0 +1,27 @@
+#!/bin/bash
+
+url=""
+envCount=0
+envString=""
+argsString=""
+
+while [ -n "$1" ]; do
+    case $1 in
+        --env)
+            envString="${envString}--es env${envCount} $2 "
+            envCount=$((envCount+1))
+            shift
+            ;;
+        --args)
+            argsString=$2
+            shift
+            ;;
+        *)
+            url=$1
+            ;;
+    esac
+    shift
+done  
+
+echo "am start -a android.intent.action.VIEW -d \"$url\" $envString $argsString org.mozilla.fennec_${USER}"
+exec adb shell am start -a android.intent.action.VIEW -d "$url" $envString $argsString org.mozilla.fennec_${USER}
