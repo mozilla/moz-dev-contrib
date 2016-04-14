@@ -85,22 +85,24 @@ SDKDirStr = SDKDir.replace('\\', '\\\\').rstrip('\\')
 print r'export VSINSTALLDIR="%s"' % (VSInstallDirStr)
 print r'export WINDOWSSDKDIR="%s"' % (SDKDirStr)
 
-print r'export INCLUDE=""'
-print r'export INCLUDE="${INCLUDE};%s\\include"' % (VCProductDirStr)
-print r'export INCLUDE="${INCLUDE};%s\\atlmfc\\include"' % (VCProductDirStr)
-print r'export INCLUDE="${INCLUDE};%s\\include\\%s\\ucrt"' % (SDKDirStr, SDKFullVersion)
-print r'export INCLUDE="${INCLUDE};%s\\include\\%s\\shared"' % (SDKDirStr, SDKFullVersion)
-print r'export INCLUDE="${INCLUDE};%s\\include\\%s\\um"' % (SDKDirStr, SDKFullVersion)
-print r'export INCLUDE="${INCLUDE};%s\\include\\%s\\winrt"' % (SDKDirStr, SDKFullVersion)
+print r'INCLUDE=""'
+print r'INCLUDE="${INCLUDE};%s\\include"' % (VCProductDirStr)
+print r'INCLUDE="${INCLUDE};%s\\atlmfc\\include"' % (VCProductDirStr)
+print r'INCLUDE="${INCLUDE};%s\\include\\%s\\ucrt"' % (SDKDirStr, SDKFullVersion)
+print r'INCLUDE="${INCLUDE};%s\\include\\%s\\shared"' % (SDKDirStr, SDKFullVersion)
+print r'INCLUDE="${INCLUDE};%s\\include\\%s\\um"' % (SDKDirStr, SDKFullVersion)
+print r'INCLUDE="${INCLUDE};%s\\include\\%s\\winrt"' % (SDKDirStr, SDKFullVersion)
+print r'export INCLUDE'
 
 vclibsuffix = "amd64" if MSVSTarget == "amd64" else ""
 sdklibsuffix = "x64" if MSVSTarget == "amd64" else "x86"
 
-print r'export LIB=""'
-print r'export LIB="${LIB};%s\\lib\\%s"' % (VCProductDirStr, vclibsuffix)
-print r'export LIB="${LIB};%s\\atlmfc\\lib\\%s"' % (VCProductDirStr, vclibsuffix)
-print r'export LIB="${LIB};%s\\lib\\%s\\ucrt\\%s"' % (SDKDirStr, SDKFullVersion, sdklibsuffix)
-print r'export LIB="${LIB};%s\\lib\\%s\\um\\%s"' % (SDKDirStr, SDKFullVersion, sdklibsuffix)
+print r'LIB=""'
+print r'LIB="${LIB};%s\\lib\\%s"' % (VCProductDirStr, vclibsuffix)
+print r'LIB="${LIB};%s\\atlmfc\\lib\\%s"' % (VCProductDirStr, vclibsuffix)
+print r'LIB="${LIB};%s\\lib\\%s\\ucrt\\%s"' % (SDKDirStr, SDKFullVersion, sdklibsuffix)
+print r'LIB="${LIB};%s\\lib\\%s\\um\\%s"' % (SDKDirStr, SDKFullVersion, sdklibsuffix)
+print r'export LIB'
 
 # These are printed in reverse order, because we're prepending to path
 
