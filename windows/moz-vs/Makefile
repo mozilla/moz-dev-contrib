@@ -1,0 +1,4 @@
+
+all:
+	makepkg --skipinteg
+

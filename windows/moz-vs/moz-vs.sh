@@ -9,12 +9,14 @@ moz_vs() {
 	2015|2015-64|vs2015-64)
 	    /usr/share/moz-vs/moz-vs-get-values.py amd64 2015 > $temp
 	    . $temp
-	    rm -f $temp
 	    ;;
 	2015-32|vs2015-32)
 	    /usr/share/moz-vs/moz-vs-get-values.py x86 2015 > $temp
 	    . $temp
-	    rm -f $temp
+	    ;;
+	2013|2013-64|vs2013-64)
+	    /usr/share/moz-vs/moz-vs-get-values.py amd64 2013 > $temp
+	    . $temp
 	    ;;
 	*)
 	    echo Usage: moz_vs env
@@ -23,5 +25,6 @@ moz_vs() {
 	    echo     2015-32 vs2015-32        Visual Studio 2015, 32-bit 
 	;;
     esac
+    rm -f $temp
 }
 

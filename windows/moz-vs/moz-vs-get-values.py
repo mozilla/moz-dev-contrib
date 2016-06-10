@@ -1,4 +1,4 @@
-#!python
+#!/mingw64/bin/python.exe
 
 import os
 import sys
@@ -83,6 +83,7 @@ VSInstallDirStr = VSInstallDir.replace('\\', '\\\\').rstrip('\\')
 SDKDirStr = SDKDir.replace('\\', '\\\\').rstrip('\\')
 
 print r'export VSINSTALLDIR="%s"' % (VSInstallDirStr)
+print r'export VCINSTALLDIR="%s"' % (VCProductDirStr)
 print r'export WINDOWSSDKDIR="%s"' % (SDKDirStr)
 
 print r'INCLUDE=""'

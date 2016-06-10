@@ -1,7 +1,7 @@
 # Maintainer: Vladimir Vukicevic <vladimir@pobox.com>
 
 pkgname=moz-vs
-pkgver=0.1.1.1.1
+pkgver=0.1.2.1.1.1
 pkgrel=1
 pkgdesc="Utility scripts for building Firefox/Gecko under MSYS2"
 arch=('any')
