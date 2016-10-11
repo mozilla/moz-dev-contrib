@@ -87,8 +87,6 @@ if not SDKVer:
     print "exit 1"
     sys.exit(1)
 
-print "SDKVer", SDKVer, "SDKDir", SDKDir, "SDKFullVersion", SDKFullVersion
-
 VCProductDirStr = VCProductDir.replace('\\', '\\\\').rstrip('\\')
 VSInstallDirStr = VSInstallDir.replace('\\', '\\\\').rstrip('\\')
 SDKDirStr = SDKDir.replace('\\', '\\\\').rstrip('\\')
