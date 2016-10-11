@@ -22,9 +22,10 @@ moz_vs() {
 	    echo Usage: moz_vs env
 	    echo   Valid environment names:
 	    echo     2015 2015-64 vs2015-64   Visual Studio 2015, 64-bit 
-	    echo     2015-32 vs2015-32        Visual Studio 2015, 32-bit 
+	    echo     2015-32 vs2015-32        Visual Studio 2015, 32-bit
 	;;
     esac
     rm -f $temp
+    export MSYS2_ARG_CONV_EXCL=-F
 }
 

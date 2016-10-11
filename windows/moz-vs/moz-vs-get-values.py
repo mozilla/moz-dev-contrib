@@ -39,8 +39,9 @@ try:
     (VCProductDir,_) = QueryValueEx(key, r'ProductDir')
     CloseKey(key)
 except WindowsError, ex:
-    print "echo Visual Studio product directory not found"
-    #print ex
+    print "echo VS product dir not found"
+    print "echo ", ex
+    print "exit 1"
     sys.exit(1)
 
 sdkvers = ('v10.0', 'v8.1A', 'v8.1')
@@ -63,7 +64,7 @@ for sdkv in sdkvers:
         CloseKey(key)
         break
     except WindowsError, ex:
-        print "echo '%s'" % (str(ex))
+        print ex
         SDKVer = None
         continue
 
@@ -72,11 +73,21 @@ for sdkv in sdkvers:
         SDKVer = None
         continue
 
+    if not os.path.exists(os.path.join(SDKDir, "lib", SDKFullVersion, "um/x64/kernel32.lib")):
+        SDKFullVersion = SDKFullVersion + ".0"
+        if not os.path.exists(os.path.join(SDKDir, "lib", SDKFullVersion, "um/x64/kernel32.lib")):
+            print "echo Windows SDK not found in dir from registry"
+            print "exit 1"
+            sys.exit(1)
+        
     break
 
 if not SDKVer:
     print "echo No SDK found -- tried %s" % (sdkvers)
+    print "exit 1"
     sys.exit(1)
+
+print "SDKVer", SDKVer, "SDKDir", SDKDir, "SDKFullVersion", SDKFullVersion
 
 VCProductDirStr = VCProductDir.replace('\\', '\\\\').rstrip('\\')
 VSInstallDirStr = VSInstallDir.replace('\\', '\\\\').rstrip('\\')
@@ -110,7 +121,8 @@ print r'export LIB'
 def prepend_path(*args):
     realpath = os.path.abspath(os.path.join(*args))
     if realpath[1] != ':' or realpath[2] not in ('/', '\\'):
-        print "echo abspath returned a path that isn't in windows form C://... ?"
+        print "echo abspath returned a path that isn't in windows form C://... "
+        print "exit 1"
         sys.exit(1)
     realpath = '/' + realpath[0] + '/' + realpath[3:]
     print r'PATH="%s:${PATH}"' % (realpath)
