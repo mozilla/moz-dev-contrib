@@ -62,20 +62,15 @@ for sdkv in sdkvers:
         (SDKFullVersion,_) = QueryValueEx(key, r'ProductVersion')
         (SDKFullName,_) = QueryValueEx(key, r'ProductName')
         CloseKey(key)
-        break
     except WindowsError, ex:
         print ex
         SDKVer = None
         continue
 
     # Verify that things actually exist
-    if not os.path.exists(os.path.join(SDKDir, "Include/um/Windows.h")):
-        SDKVer = None
-        continue
-
-    if not os.path.exists(os.path.join(SDKDir, "lib", SDKFullVersion, "um/x64/kernel32.lib")):
+    if not os.path.exists(os.path.join(SDKDir, "Include", SDKFullVersion, "um/Windows.h")):
         SDKFullVersion = SDKFullVersion + ".0"
-        if not os.path.exists(os.path.join(SDKDir, "lib", SDKFullVersion, "um/x64/kernel32.lib")):
+        if not os.path.exists(os.path.join(SDKDir, "Include", SDKFullVersion, "um/Windows.h")):
             print "echo Windows SDK not found in dir from registry"
             print "exit 1"
             sys.exit(1)
